@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Ксения Белоусова](https://up.htmlacademy.ru/javascript/20/user/1464567).
-* Наставник: Полина Катышева https://htmlacademy.ru/profile/polina.
+* Наставник: [Полина Катышева](https://htmlacademy.ru/profile/polina).
 
 ---
 
