@@ -2,33 +2,36 @@ var adsCount = 8;
 var x = 0;
 var y = 0;
 var ads = [];
-var titles = ["Заголовок 1", "Заголовок 2", "Заголовок 3"];
-var houses = [palace, flat, house, bungalo];
+var houses = ["palace", "flat", "house", "bungalo"];
 var checks = ["12:00", "13:00", "14:00"];
 var feature = ["wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"]
-var get_feature_list = function(list){
-    for (var i = 0; i < randomInteger(0, list.length- 1); i++){
-      list.remove(list[0]);
+var get_random_integer = function(min, max){
+  return Math.floor(Math.random(min) * Math.floor(max));
+}
+var get_features_list = function(features_list){
+    for (var i = 0; i < get_random_integer(0, features_list.length- 1); i++){
+      features_list.splice(0, 0);
     };
   };
-for (var j = 0; j < adsCount; i++){
-  var roomAmount = randomInteger(1, 10);
-  location.x = randomInteger(5, document.width() - 5);
-  location.y = randomInteger(130, 630);
-  get_feature_list (feature);
+
+var main_function = function(adsCount){for (var j = 0; j < adsCount; j++){
+  var roomAmount = get_random_integer(1, 10);
+  location.x = get_random_integer(5, document.width - 5);
+  location.y = get_random_integer(130, 630);
+  get_features_list (feature);
   ads.push({
     "author": {
-      "avatar": "img/avatars/user0"+ i +".png"
+      "avatar": "img/avatars/user0"+ j +".png"
     },
     "offer": {
-      "title": "Заголовок " + i,
+      "title": "Заголовок " + j,
       "address": location.x + ", " + location.y,
-      "price": randomInteger(1, 100000),
-      "type": houses[randomInteger(0, houses.length - 1)],
+      "price": get_random_integer(1, 100000),
+      "type": houses[get_random_integer(0, houses.length - 1)],
       "rooms": roomAmount,
       "guests": roomAmount * 2,
-      "checkin": checks[randomInteger(0, houses.length - 1)],
-      "checkout": houses[randomInteger(0, houses.length - 1)],
+      "checkin": checks[get_random_integer(0, checks.length - 1)],
+      "checkout": checks[get_random_integer(0, checks.length - 1)],
       "features": feature,
       "description": "строка с описанием",
       "photos": ["http://o0.github.io/assets/images/tokyo/hotel1.jpg", "http://o0.github.io/assets/images/tokyo/hotel2.jpg", "http://o0.github.io/assets/images/tokyo/hotel3.jpg"]
@@ -38,6 +41,6 @@ for (var j = 0; j < adsCount; i++){
       "y": location.y
   }
 });}
-return ads;
-
+return ads};
+main_function(adsCount);
 document.querySelector('.map').classList.remove('map--faded');
