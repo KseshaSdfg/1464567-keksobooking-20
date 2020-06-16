@@ -46,7 +46,7 @@ main_function(adsCount);
 document.querySelector('.map').classList.remove('map--faded');
 var printPins = function(){
   for (var j = 0; j < adsCount; j++){
-  document.querySelector('.map__pins').innerHTML += main_function;
+  document.querySelector('.map__pins').appendChild(main_function);
   };
 }
 printPins();
@@ -79,4 +79,4 @@ var get_information = function(){
   ;
 }
 document.querySelector('.map').push(main_function);
-DocumentFragment.querySelector('.map__pins').innerHTML += main_function;
+DocumentFragment.querySelector('.map__pins').appendChild(main_function);
