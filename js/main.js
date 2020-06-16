@@ -44,3 +44,39 @@ var main_function = function(adsCount){for (var j = 0; j < adsCount; j++){
 return ads};
 main_function(adsCount);
 document.querySelector('.map').classList.remove('map--faded');
+var printPins = function(){
+  for (var j = 0; j < adsCount; j++){
+  document.querySelector('.map__pins').innerHTML+= main_function;
+  };
+}
+printPins();
+var get_information = function(){
+  document.querySelector('.popup__title').value = offer.title.textContent;
+  if (offer.type === 'flat') {
+    var home_type = 'Квартира';
+  }
+  else if (offer.type === 'bungalo') {
+    var home_type = 'Бунгало';
+  }
+  else if (offer.type === 'house') {
+    var home_type = 'Дом';
+  }
+  else {
+    var home_type = 'Дворец';
+  }
+  ;
+  var popup__photos = document.querySelector('.popup__photos');
+  var photos = [];
+  document.querySelector('.popup__text--address').appendChild(ads[0].offer.address);
+  document.querySelector('.popup__text--price').appendChild(ads[i].offer.price + '₽/ночь');
+  document.querySelector('.popup__type').appendChild(home_type);
+  document.querySelector('.popup__text--time').appendChild('Заезд после ' + offer.checkin + ', выезд до ' + offer.checkout);
+  document.querySelector('.popup__features');
+  document.querySelector('.popup__description').appendChild(offer.description);
+  for (var i = 0; i < offer.photos.lenght; i++) {
+    photos.push("src = &quot;" + offer.photos[i] + "&quot;");
+  }
+  ;
+}
+document.querySelector('.map').push(main_function);
+DocumentFragment.querySelector('.map__pins').innerHTML += (main_function);
