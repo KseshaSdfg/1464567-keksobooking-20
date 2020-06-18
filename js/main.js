@@ -7,21 +7,22 @@ var checks = ["12:00", "13:00", "14:00"];
 var feature = ["wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"]
 var get_random_integer = function(min, max){
   return Math.floor(Math.random(min) * Math.floor(max));
-}
-var get_features_list = function(features_list){
+};
+var get_features_list = function(features_list) {
     for (var i = 0; i < get_random_integer(0, features_list.length- 1); i++){
       features_list.splice(0, 0);
-    };
+    }
   };
 
-var main_function = function(adsCount){for (var j = 0; j < adsCount; j++){
+var main_function = function(adsCount) {
+  for (var j = 0; j < adsCount; j++) {
   var roomAmount = get_random_integer(1, 10);
-  location.x = get_random_integer(5, document.width - 5);
-  location.y = get_random_integer(130, 630);
+  var locationX = get_random_integer(0, 1200);
+  var locationY = get_random_integer(130, 630);
   get_features_list (feature);
   ads.push({
     "author": {
-      "avatar": "img/avatars/user0"+ j +".png"
+      "avatar": "img/avatars/user0"+ (j+1) +".png"
     },
     "offer": {
       "title": "Заголовок " + j,
@@ -37,46 +38,39 @@ var main_function = function(adsCount){for (var j = 0; j < adsCount; j++){
       "photos": ["http://o0.github.io/assets/images/tokyo/hotel1.jpg", "http://o0.github.io/assets/images/tokyo/hotel2.jpg", "http://o0.github.io/assets/images/tokyo/hotel3.jpg"]
     },
   "location": {
-      "x": location.x,
-      "y": location.y
+      "x": locationX,
+      "y": locationY
+    }
+  });
   }
-});}
-return ads};
+  return ads
+};
+
+document.querySelector('.map').classList.remove('map--faded');
 main_function(adsCount);
 document.querySelector('.map').classList.remove('map--faded');
-var printPins = function(){
-  for (var j = 0; j < adsCount; j++){
-  document.querySelector('.map__pins').appendChild(main_function);
-  };
-}
-printPins();
-var get_information = function(){
-  document.querySelector('.popup__title').value = offer.title.textContent;
-  if (offer.type === 'flat') {
-    var home_type = 'Квартира';
+var MAP_PIN_WIDTH = 50;
+var MAP_PIN_HEIGHT = 70;
+var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+
+var renderMapPin = function (ad) {
+  var mapPinElement = mapPinTemplate.cloneNode(true);
+  mapPinElement.style.left = ad.location.x - MAP_PIN_WIDTH / 2 + 'px';
+  mapPinElement.style.top = ad.location.y - MAP_PIN_HEIGHT + 'px';
+  var mapPinImg = mapPinElement.querySelector('img');
+  mapPinImg.src = ad.author.avatar;
+  mapPinImg.alt = ad.offer.title;
+  return mapPinElement;
+};
+
+var drawAd = function () {
+  var ads = main_function(adsCount);;
+  var fragment = document.createDocumentFragment();
+  var mapPinsElement = document.querySelector('.map__pins');
+  for (var i = 0; i < ads.length; i++) {
+    fragment.appendChild(renderMapPin(ads[i]));
   }
-  else if (offer.type === 'bungalo') {
-    var home_type = 'Бунгало';
-  }
-  else if (offer.type === 'house') {
-    var home_type = 'Дом';
-  }
-  else {
-    var home_type = 'Дворец';
-  }
-  ;
-  var popup__photos = document.querySelector('.popup__photos');
-  var photos = [];
-  document.querySelector('.popup__text--address').appendChild(ads[0].offer.address);
-  document.querySelector('.popup__text--price').appendChild(ads[i].offer.price + '₽/ночь');
-  document.querySelector('.popup__type').appendChild(home_type);
-  document.querySelector('.popup__text--time').appendChild('Заезд после ' + offer.checkin + ', выезд до ' + offer.checkout);
-  document.querySelector('.popup__features');
-  document.querySelector('.popup__description').appendChild(offer.description);
-  for (var i = 0; i < offer.photos.lenght; i++) {
-    photos.push("src = &quot;" + offer.photos[i] + "&quot;");
-  }
-  ;
-}
-document.querySelector('.map').push(main_function);
-DocumentFragment.querySelector('.map__pins').appendChild(main_function);
+  mapPinsElement.appendChild(fragment);
+};
+
+drawAd();
