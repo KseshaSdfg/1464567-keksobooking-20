@@ -107,11 +107,12 @@ var get_information = function(cardTemplateElement){
    };
    popupFeaturesList.innerText = ads[0].features;
    cardTemplateElement.querySelector('.popup__description').innerText = ads[0].offer.description;
-   for (var i = 0; i < ads[0].offer.photos.lenght; i++) {
-     photos.push("src = &quot;" + ads[0].offer.photos[i] + "&quot;");
-
-   }
-   return cardTemplateElement;
+   for (var i = 0; i < ads[0].offer.photos.length; i++){
+   var photoElem = document.createElement('li');
+   photoElem.className = "popup__photo";
+   photoElem.innerHTML = "<img = \"" + ads[0].offer.photos[i] +"\" width = \"45\" height=\"40\" alt= \"Фотография жилья\">"
+   popup__photos.appendChild(photoElem);
+   return cardTemplateElement;}
 
  };
  var renderCard = function(){
