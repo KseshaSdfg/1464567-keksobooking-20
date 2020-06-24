@@ -111,8 +111,8 @@ var get_information = function(cardTemplateElement){
    var photoElem = document.createElement('li');
    photoElem.className = "popup__photo";
    photoElem.innerHTML = "<img = \"" + ads[0].offer.photos[i] +"\" width = \"45\" height=\"40\" alt= \"Фотография жилья\">"
-   popup__photos.appendChild(photoElem);
-   return cardTemplateElement;}
+   popup__photos.appendChild(photoElem);}
+   return cardTemplateElement;
 
  };
  var renderCard = function(){
